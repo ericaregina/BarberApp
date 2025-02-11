@@ -1,0 +1,36 @@
+name: loginpage
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.6
+  flutter_secure_storage: ^5.0.2
+  font_awesome_flutter: ^10.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_native_splash: ^2.3.6
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/barber.png  
+
+flutter_native_splash:
+  color: "#000000"  
+  image: assets/barber.png  
+  android: true
+  ios: true
+  fullscreen: true
+
