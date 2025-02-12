@@ -1,3 +1,4 @@
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -36,17 +37,32 @@ class SplashScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.black, 
-      body: Center(
-        child: Image.asset(
-          'assets/barber.png', 
-          width: 200, 
-          height: 200, 
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Center(
+            child: Image.asset(
+              'assets/barber.png', 
+              width: 200, 
+              height: 200, 
+            ),
+          ),
+          SizedBox(height: 20),
+          Text(
+            "Olá, bora agendar?",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
 }
-
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -58,6 +74,16 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   String _currentForm = 'login'; 
+
+  // Função para abrir o Instagram
+  Future<void> _launchInstagram() async {
+    const url = 'https://www.instagram.com/ericacom_c/'; // Substitua pelo seu link do Instagram
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Não foi possível abrir o link $url';
+    }
+  }
 
   Future<void> login() async {
     final response = await http.post(
@@ -116,18 +142,21 @@ class _AuthScreenState extends State<AuthScreen> {
       appBar: AppBar(
         title: Row(
           children: [
-            Icon(
-              FontAwesomeIcons.instagram, 
-              color: Color(0xFF36AA91), 
+            IconButton(
+              icon: Icon(
+                FontAwesomeIcons.instagram, 
+                color: Color(0xFF36AA91),
+              ),
+              onPressed: _launchInstagram, // Chama a função _launchInstagram
             ),
-            SizedBox(width: 10), 
+            SizedBox(width: 10),
             Text(
-              "SpartaBarber",
+              "Visite nosso perfil!",
               style: TextStyle(color: Colors.white), 
             ),
           ],
         ),
-        backgroundColor: Colors.black, 
+        backgroundColor: Colors.black,
       ),
       body: Center(
         child: Container(
